@@ -1,0 +1,23 @@
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Download, Filter, Calendar, Folder, Tag } from 'lucide-react'
+import { Card } from '../components/ui/Card'
+import { Button } from '../components/ui/Button'
+
+const mockLogs = [
+  { id: 1, date: '2023-10-25', user: 'John Doe', project: 'Chronos App', task: 'Dashboard UI Implementation', duration: '02:45:12', billable: true },
+  { id: 2, date: '2023-10-25', user: 'John Doe', project: 'Internal', task: 'Team Sync', duration: '00:30:00', billable: false },
+  { id: 3, date: '2023-10-24', user: 'Alice Smith', project: 'Website Redesign', task: 'Homepage Mockups', duration: '04:15:00', billable: true },
+  { id: 4, date: '2023-10-24', user: 'Mike Johnson', project: 'Mobile App', task: 'API Integration', duration: '03:20:00', billable: true },
+  { id: 5, date: '2023-10-23', user: 'Sarah Wilson', project: 'Brand Identity', task: 'Logo Concepts', duration: '02:00:00', billable: true },
+]
+
+export const Reports = () => {
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-6">
+      <div className="flex items-center justify-between"><div><h2 className="text-2xl font-bold text-text-primary mb-1">Detailed Reports</h2><p className="text-sm text-text-muted">Export and analyze your time logs.</p></div><Button leftIcon={<Download className="w-4 h-4" />}>Export CSV</Button></div>
+      <Card className="p-4 flex flex-wrap items-center gap-4"><div className="flex items-center gap-2 bg-surface-light px-3 py-2 rounded-lg border border-border"><Calendar className="w-4 h-4 text-text-muted" /><select className="bg-transparent text-sm text-text-primary focus:outline-none"><option>This Week</option><option>Last Week</option><option>This Month</option><option>Custom Range</option></select></div><div className="flex items-center gap-2 bg-surface-light px-3 py-2 rounded-lg border border-border"><Folder className="w-4 h-4 text-text-muted" /><select className="bg-transparent text-sm text-text-primary focus:outline-none"><option>All Projects</option><option>Chronos App</option><option>Website Redesign</option><option>Mobile App</option></select></div><div className="flex items-center gap-2 bg-surface-light px-3 py-2 rounded-lg border border-border"><Tag className="w-4 h-4 text-text-muted" /><select className="bg-transparent text-sm text-text-primary focus:outline-none"><option>All Statuses</option><option>Billable</option><option>Non-billable</option></select></div><Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />} className="ml-auto">More Filters</Button></Card>
+      <Card className="overflow-hidden"><div className="overflow-x-auto"><table className="w-full text-left border-collapse"><thead><tr className="border-b border-border bg-surface-light/50"><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider">Date</th><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider">User</th><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider">Project</th><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider">Task</th><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider">Duration</th><th className="px-6 py-4 text-xs font-medium text-text-muted uppercase tracking-wider text-right">Billable</th></tr></thead><tbody className="divide-y divide-border">{mockLogs.map((log) => (<tr key={log.id} className="hover:bg-surface-light/30 transition-colors"><td className="px-6 py-4 text-sm text-text-secondary">{log.date}</td><td className="px-6 py-4 text-sm font-medium text-text-primary">{log.user}</td><td className="px-6 py-4 text-sm text-text-secondary">{log.project}</td><td className="px-6 py-4 text-sm text-text-primary">{log.task}</td><td className="px-6 py-4"><span className="font-pixel text-[10px] text-text-primary">{log.duration}</span></td><td className="px-6 py-4 text-right">{log.billable ? <span className="inline-flex items-center justify-center w-6 h-6 rounded bg-accent/10 text-accent font-bold text-sm">$</span> : <span className="text-text-muted">-</span>}</td></tr>))}</tbody><tfoot className="bg-surface-light/50 border-t border-border"><tr><td colSpan={4} className="px-6 py-4 text-right text-sm font-medium text-text-secondary">Total Duration:</td><td className="px-6 py-4 font-pixel text-sm text-accent">12:50:12</td><td className="px-6 py-4"></td></tr></tfoot></table></div></Card>
+    </motion.div>
+  )
+}
