@@ -1,5 +1,5 @@
 import React from 'react'
-import { Search, Bell } from 'lucide-react'
+import { Search, Bell, Menu } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 
 const routeTitles: Record<string, string> = {
@@ -7,18 +7,31 @@ const routeTitles: Record<string, string> = {
   '/tracker': 'Time Tracker',
   '/projects': 'Projects',
   '/team': 'Team',
+  '/chat': 'Team Chat',
   '/analytics': 'Analytics',
   '/reports': 'Reports',
   '/settings': 'Settings'
 }
 
-export const TopBar = () => {
+interface TopBarProps {
+  onMenuClick: () => void;
+}
+
+export const TopBar = ({ onMenuClick }: TopBarProps) => {
   const location = useLocation()
   const title = routeTitles[location.pathname] || 'Chronos'
   
   return (
-    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-10 flex items-center justify-between px-8">
-      <h1 className="text-lg font-semibold text-text-primary">{title}</h1>
+    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-10 flex items-center justify-between px-4 md:px-8">
+      <div className="flex items-center gap-4">
+        <button 
+          onClick={onMenuClick}
+          className="lg:hidden p-2 -ml-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-surface-light transition-colors"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+        <h1 className="text-lg font-semibold text-text-primary">{title}</h1>
+      </div>
       <div className="flex items-center gap-4">
         <div className="relative hidden md:block">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
